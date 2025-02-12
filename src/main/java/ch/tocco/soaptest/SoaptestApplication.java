@@ -5,9 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class SoaptestApplication {
-
-	public static void main(String[] args) {
-		SpringApplication.run(SoaptestApplication.class, args);
-	}
-
+    public static void main(String[] args) {
+        SpringApplication.run(SoaptestApplication.class, args);
+    }
 }

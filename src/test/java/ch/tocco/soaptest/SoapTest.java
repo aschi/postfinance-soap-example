@@ -13,24 +13,23 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class SoapTest {
+    @Autowired
+    private ResourceLoader resourceLoader;
 
-	@Autowired
-	private ResourceLoader resourceLoader;
+    @Test
+    void testPing() {
+        try {
+            assertTrue(resourceLoader.getResource("classpath:B2BService.xml").exists());
+            assertTrue(resourceLoader.getResource("classpath:wsit-client.xml").exists());
 
-	@Test
-	void testPing() {
-		try {
-			assertTrue(resourceLoader.getResource("classpath:B2BService.xml").exists());
-			assertTrue(resourceLoader.getResource("classpath:wsit-client.xml").exists());
+            URI uri = URI.create("https://ebill-ki.postfinance.ch/B2BService/B2BService.svc?singleWsdl");
+            B2BService port = new B2BService_Service(uri.toURL()).getUserNamePassword();
 
-			URI uri = URI.create("https://ebill-ki.postfinance.ch/B2BService/B2BService.svc?singleWsdl");
-			B2BService port = new B2BService_Service(uri.toURL()).getUserNamePassword();
+            String result = port.executePing("41101000001294361", null, null, null);
 
-			String result = port.executePing("41101000001294361", null, null, null);
-
-			assertEquals("41101000001294361", result);
-		} catch (Exception e) {
-			fail("An exception occured: %s".formatted(e.getMessage()), e);
-		}
-	}
+            assertEquals("41101000001294361", result);
+        } catch (Exception e) {
+            fail("An exception occured: %s".formatted(e.getMessage()), e);
+        }
+    }
 }
