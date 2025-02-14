@@ -15,14 +15,21 @@ java {
 
 repositories {
 	mavenCentral()
+	maven {
+		url "https://repo.jenkins-ci.org/public/"
+	}
 }
+
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
-	implementation 'com.sun.xml.ws:jaxws-ri:4.0.3'
+	implementation 'org.apache.cxf:cxf-rt-frontend-jaxws:4.1.0'
+	implementation 'org.apache.cxf:cxf-rt-transports-http:4.1.0'
+	implementation 'org.apache.cxf:cxf-rt-ws-security:4.1.0'
+
 	implementation 'jakarta.xml.bind:jakarta.xml.bind-api:4.0.2'
 }
 
